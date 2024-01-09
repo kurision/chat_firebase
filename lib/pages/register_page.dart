@@ -2,14 +2,15 @@ import 'package:chat_firebase/components/my_button.dart';
 import 'package:chat_firebase/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  final void Function()? onTap;
-  LoginPage({super.key, required this.onTap});
-
+class RegisterPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+  final void Function()? onTap;
+  RegisterPage({super.key, required this.onTap});
 
-  void login() {}
+  void register() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,10 +58,20 @@ class LoginPage extends StatelessWidget {
               height: 25,
             ),
 
+            //password textfield
+            MyTextField(
+              hintText: 'Confirm Password',
+              obscuretext: true,
+              controller: _confirmPasswordController,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+
             //login button
             MyButton(
-              text: 'Login',
-              onTap: login,
+              text: 'Register',
+              onTap: register,
             ),
             const SizedBox(
               height: 25,
@@ -69,14 +80,14 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Not a User ? ",
+                  "Already Have an account ? ",
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
                 GestureDetector(
                   onTap: onTap,
                   child: Text(
-                    "Register now",
+                    "Login now",
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold),
