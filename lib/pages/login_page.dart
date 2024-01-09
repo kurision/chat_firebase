@@ -1,3 +1,4 @@
+import 'package:chat_firebase/auth/auth_service.dart';
 import 'package:chat_firebase/components/my_button.dart';
 import 'package:chat_firebase/components/my_textfield.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,22 @@ class LoginPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void login() {}
+  void login(BuildContext context) async {
+    final authService = AuthService();
+    try {
+      await authService.loginWithEmailAndPassword(
+          _emailController.text, _passwordController.text);
+    } catch (e) {
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: Text(e.toString()),
+                ));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +76,7 @@ class LoginPage extends StatelessWidget {
             //login button
             MyButton(
               text: 'Login',
-              onTap: login,
+              onTap: () => login(context),
             ),
             const SizedBox(
               height: 25,
